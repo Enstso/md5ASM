@@ -12,7 +12,6 @@ docker build -t assembly .
 docker run -it --rm  -v $(pwd):/app assembly bash
 ```
 
-```bash
 
 ## How MD5 Algorithm Works
 
