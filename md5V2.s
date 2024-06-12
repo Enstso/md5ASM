@@ -63,7 +63,7 @@ _start:
     mov rax,1
     mov rdi,1
     mov rsi, result
-    mov rdx, 16
+    mov rdx, 48
     syscall 
 
     ; Fin du programme
