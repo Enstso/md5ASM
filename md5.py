@@ -38,6 +38,9 @@ def preprocess_message(message):
     # Convert message to bytes
     message = bytearray(message.encode('utf-8'))
     
+    # Original length in bits
+    original_length_bits = len(message) * 8
+    
     # Append a '1' bit
     message.append(0x80)
     
@@ -46,8 +49,7 @@ def preprocess_message(message):
         message.append(0)
     
     # Append original message length in bits (64 bits, little-endian)
-    original_length_bits = (8 * len(message)).to_bytes(8, byteorder='little')
-    message.extend(original_length_bits)
+    message.extend(original_length_bits.to_bytes(8, byteorder='little'))
     
     return message
 
@@ -73,7 +75,7 @@ def I(x, y, z):
 
 # Helper function for left rotation
 def left_rotate(x, c):
-    return (x << c) | (x >> (32 - c))
+    return (x << c) & 0xFFFFFFFF | (x >> (32 - c))
 
 # Process a 512-bit block
 def process_block(block, A, B, C, D):
